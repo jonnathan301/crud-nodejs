@@ -1,0 +1,26 @@
+version: '3.7'
+services:
+  postgres:
+    build:
+      context:
+      dockerfile: Dockerfile
+    container_name: postgres
+    restart: always
+    enviroment:
+      POSTGRES_DB: "Personas"
+      POSTGRES_PASSWORD: "sa2"
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - 5432: 5432
+    volumes:
+      - pgdata:var/lib/postgresql/data
+    networks:
+      postgres_network:
+        aliases:
+          - postgres_host
+volumes:
+  pgdata: {}
+networks:
+  postgres_network:
+    name: postgres_net
+    driver: bridge
